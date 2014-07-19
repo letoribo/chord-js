@@ -99,29 +99,36 @@ window.onload = function (){console.log(MIDI);
 	});
 };
 
-Chord = $("#chordinput");
+var timer, Chord = $("#chordinput");
 
 $("#amount").focus(function (){this.blur();});Chord.focus(function (){this.blur();});
 $("#vel").focus(function (){this.blur();});
 
-$("b").click(function (e){ 
-  var chord = teoria.chord(root.chord($(this).next("i").text()).name);
+$("b").click(function (e){ MIDI.chordOff(0, vals); clearTimeout(timer);
+  var chord = teoria.chord(root.chord($(this).next("i").text()).name); console.log(chord);
   purge(g);
   Chord.attr("value", chord);Chord.change();
   purge(panel);
   plotChord(chord, options);
 });
 
+var vals = [];
+for (i = 0; i <= 127; i++){vals.push(i)};
+
 Chord.change(function (event){
   Chord.attr("value", this.value);
-  var harmony = teoria.chord(input.getAttribute("value")).notes();
-  console.log( teoria.chord(Chord.attr("value")).intervals + ";" + teoria.chord(Chord.attr("value")).quality());
-  $("*").removeClass("col"); var _chord=[];
-  teoria.chord(Chord.attr("value")).intervals.forEach(function(d, i){
-  	 semiton = d.semitones(); _chord.push(n+semiton);
-    ID1 = (n+semiton) + ''; $('#' + ID1).addClass("col");
+  var chord = teoria.chord(this.value);
+  console.log(chord.intervals + ";" + chord.quality());
+  $("*").removeClass("col");
+  var _chord=[];
+  chord.intervals.forEach(function(d, i){
+  	 semiton = d.semitones(); var notes = n+semiton;
+  	 _chord.push(notes);
+    ID = notes + ''; $('#' + ID).addClass("col");
   });
-  MIDI.chordOn(0, _chord, velocity); setTimeout(function(){MIDI.chordOff(0, _chord)}, 2600);	
+  console.log(_chord);
+  MIDI.chordOn(0, _chord, velocity); 
+  timer = setTimeout(function(){MIDI.chordOff(0, _chord)}, 2600);	
 });
       
 $('#piano span').on('mousedown', function(e){$(this).addClass("on"); $("b").css("color", "#9E7929"); 
