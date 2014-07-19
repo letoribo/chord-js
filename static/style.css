@@ -1,0 +1,129 @@
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
+body {background-color: #FFFCEA;
+  font-size: 10pt;
+  color: #45346F;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif
+}
+
+h1 {
+  font-weight: 300;
+}
+
+#plotframe {background-color: white;
+  box-shadow: rgb(153, 153, 153) 0px 0px 5px inset;
+  -webkit-box-shadow: rgb(153, 153, 153) 0px 0px 5px inset;
+  margin-bottom: 7px;
+}
+
+#container {
+  width: 1250px;
+  padding-left: 7px;
+  text-align: center;
+}
+
+#chordinput {
+  border: 1px solid #ccc;
+  border-left: 5px solid #1693a5;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+#description {
+  font-size: 9pt;
+  font-weight: 300;
+}
+
+#panel {
+  font-size: 8pt;
+  font-weight: 100;
+  color: #556270;
+  list-style-type: none;
+  margin-bottom: 20px;
+}
+
+#panel li {
+  display: inline;
+  padding-left: 10px;
+  margin-right: 15px;
+}
+
+#panel li:hover {
+  cursor: pointer;
+} 
+.highlight {color: orange;}
+.range {border:0; border-radius: 18px; background-color:#FFFCEA; color: #2C0C0D; font-weight:bold; text-align: center}
+label {font: 0.9em "Lucida Grande", "Lucida Sans Unicode", sans-serif;color :#381f00;padding-left: 450px;}
+div#piano {
+  position: relative;
+  color: #808080;
+  height: 102px;
+}
+
+div.ivory {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  border-left: 1px solid;
+  width: 1274px;
+}
+.ivory span {
+  background-color: #fffff0;
+  padding: 0px;
+  margin: 0px;
+  border: 1px solid;
+  border-left: 0px;
+  display: inline-block;
+  width: 25px;
+  height: 100px;
+  vertical-align: top;
+}
+div.ebony {
+ position: absolute;
+ left: 0px;
+ top: 0px;
+ margin-left: 14px;
+ width: 1274px;
+}
+.ebony span {
+  position: relative;
+  z-index: 1;
+  background-color: #111;
+  padding: 0px;
+  margin: 0px;
+  border: 1px solid;
+  display: inline-block;
+  width: 15px;
+  height: 70px;
+  margin-right: 13px;
+  vertical-align: top;
+}
+.ebony span.break {
+  border: 0px;
+  display: inline-block;
+  width: 1px;
+  margin-right: 15px;
+  visibility:hidden;
+}
+.ivory span.on {
+  background-color: #aaa;
+}
+.ebony span.on {
+  background-color: #aaa;
+}
+.ivory span.col { background-color: #5DA5AF;}
+.ebony span.col { background-color: #5DA5AF;}
+.hidden {
+  visibility: hidden;
+  width: 0px;
+  height: 0px;
+  margin: 0px;
+  padding: 0px;
+  border-style: none;
+  border-width: 0px;
+  max-width: 0px;
+  max-height: 0px;
+}

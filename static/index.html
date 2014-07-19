@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<!-- midi.js package -->
+<script src="./js/MIDI/AudioDetect.js" type="text/javascript"></script>
+<script src="./js/MIDI/LoadPlugin.js" type="text/javascript"></script>
+<script src="./js/MIDI/Plugin.js" type="text/javascript"></script>
+<script src="./js/MIDI/Player.js" type="text/javascript"></script>
+<script src="./js/Window/DOMLoader.XMLHttp.js" type="text/javascript"></script>
+<script src="./js/Widgets/Loader.js" type="text/javascript"></script>
+<script type="text/javascript" src="./js/MusicTheory/teoria.js"></script>
+<!-- extras -->
+<script src="./inc/Base64.js" type="text/javascript"></script>
+<script src="./inc/base64binary.js" type="text/javascript"></script>
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<link href="style.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css" />
+    
+</head>
+<body>
+<div id="container">
+<div id="plotframe">
+<svg width="1250px" height="450px" overflow="hidden" id="plot"></svg>
+</div>
+<ul id="panel"><li style="border-left-width: 3px; border-left-style: solid; border-left-color: rgb(0, 106, 224); opacity: 0.3; "></li>
+<li style="border-left-width: 3px; border-left-style: solid; border-left-color: rgb(255, 0, 0); opacity: 0.3; "></li>
+<li style="border-left-width: 3px; border-left-style: solid; border-left-color: rgb(255, 143, 0); opacity: 0.3; "></li></ul>
+<input id="chordinput" type="text">
+<p id="description"><i>Press the key on a virtual piano and click the highlighted root.name of the chord. You can click and drag
+your way around the wave function.</i></p>      
+</div>
+<div id=piano>
+<div class=ebony>
+<span id=18></span><span id=20></span><span id=22></span><span class=break></span><span id=25></span><span id=27></span><span class=break></span><span id=30></span><span id=32></span><span id=34></span><span class=break></span><span id=37></span><span id=39></span><span class=break></span><span id=42></span><span id=44></span><span id=46></span><span class=break></span><span id=49></span><span id=51></span><span class=break></span><span id=54></span><span id=56></span><span id=58></span><span class=break></span><span id=61></span><span id=63></span><span class=break></span><span id=66></span><span id=68></span><span id=70></span><span class=break></span><span id=73></span><span id=75></span><span class=break></span><span id=78></span><span id=80></span><span id=82></span><span class=break></span><span
+id=85></span><span id=87></span><span class=break></span><span id=90></span><span id=92></span><span id=94></span><span class=break></span><span id=97></span>
+</div>
+<div class=ivory>
+<span id=17></span><span id=19></span><span id=21></span><span id=23></span><span id=24></span><span id=26></span><span id=28></span><span id=29></span><span id=31></span><span id=33></span><span id=35></span><span id=36></span><span id=38></span><span id=40></span><span id=41></span><span id=43></span><span id=45></span><span id=47></span><span id=48></span><span id=50></span><span id=52></span><span id=53></span><span id=55></span><span id=57></span><span id=59></span><span id=60></span><span id=62></span><span id=64></span><span id=65></span><span id=67></span><span id=69></span><span id=71></span><span id=72></span><span id=74></span><span id=76></span><span id=77></span><span id=79></span><span id=81></span><span id=83></span><span id=84></span><span id=86></span><span id=88></span><span
+id=89></span><span id=91></span><span id=93></span><span id=95></span><span id=96></span><span id=98></span>
+</div>
+</div>
+<label for="amount"> MIDI key number :</label><input type="text" id="amount" size="5px" class="range">
+<label for="vel" style="padding-left: 1px;"> Velocity:</label>
+<input type="text" id="vel" class="range"/>
+<div id="Slider"></div>
+
+<br><strong>major :</strong>&nbsp&nbsp<b></b><i></i>&nbsp&nbsp<b></b><i>add9</i>&nbsp&nbsp<b></b><i>add9b5</i>&nbsp&nbsp<b></b><i>add9add11</i>&nbsp&nbsp<b></b><i>add9add13</i>&nbsp&nbsp<b></b><i>add11</i>&nbsp&nbsp<b></b><i>add13</i>&nbsp
+<b></b><i>maj</i>&nbsp&nbsp<b></b><i>majb5</i>&nbsp&nbsp<b></b><i>majadd11</i>&nbsp&nbsp<b></b><i>majadd13</i>&nbsp&nbsp<b></b><i>maj9</i>&nbsp&nbsp<b></b><i>maj9add13</i>&nbsp&nbsp<b></b><i>maj11</i>&nbsp&nbsp<b></b><i>maj13</i>&nbsp&nbsp<b></b><i>maj13#11</i>&nbsp&nbsp<b></b><i>6</i>&nbsp&nbsp<b></b><i>6b5</i>&nbsp
+<b></b><i>6add9</i>&nbsp&nbsp<b></b><i>6add9add11</i>&nbsp&nbsp<b></b><i>6add11</i>&nbsp&nbsp<b></b><i>6add13</i>&nbsp&nbsp<b></b><i>7b5</i>&nbsp&nbsp<b></b><i>7b5#9</i>&nbsp&nbsp<b></b><i>7b5b9</i>&nbsp&nbsp<b></b><i>9b5</i>&nbsp&nbsp<b></b><i>11b5</i>&nbsp&nbsp<b></b><i>13b5</i>
+<br><strong>dominant :</strong>&nbsp&nbsp<b></b><i>7</i>&nbsp&nbsp<b></b><i>9</i>&nbsp&nbsp<b></b><i>11</i>&nbsp&nbsp<b></b><i>9add#11</i>&nbsp&nbsp<b></b><i>11#9</i>&nbsp&nbsp<b></b><i>11b9</i>&nbsp&nbsp<b></b><i>13</i>&nbsp
+<b></b><i>7add11</i>&nbsp&nbsp<b></b><i>7b9#11</i>&nbsp&nbsp<b></b><i>7add13</i>&nbsp&nbsp<b></b><i>9add13</i>&nbsp&nbsp<b></b><i>7add#9</i>&nbsp&nbsp<b></b><i>7addb9</i>&nbsp&nbsp<b></b><i>7addb9b5</i>&nbsp
+<b></b><i>13#9</i>&nbsp&nbsp<b></b><i>13b9</i>&nbsp&nbsp<b></b><i>13b9b5</i>&nbsp&nbsp<b></b><i>11add#13</i>&nbsp&nbsp<b></b><i>13#11</i>&nbsp&nbsp<b></b><i>13b9#11</i>&nbsp
+<b></b><i>11addb13</i>&nbsp&nbsp<b></b><i>7b13#9</i>&nbsp&nbsp<b></b><i>7b13#9#11</i>
+<br><strong>minor :</strong>&nbsp&nbsp<b></b><i>m</i>&nbsp&nbsp<b></b><i>m6</i>&nbsp&nbsp<b></b><i>m7</i>&nbsp&nbsp<b></b><i>m#5</i>&nbsp
+<b></b><i>m7#5</i>&nbsp&nbsp<b></b><i>m9</i>&nbsp&nbsp<b></b><i>m9#5</i>&nbsp&nbsp<b></b><i>m11</i>&nbsp&nbsp<b></b><i>m11#5</i>&nbsp&nbsp<b></b><i>7b13#9</i>&nbsp&nbsp<b></b><i>m13</i>
+&nbsp<b></b><i>m13#5</i>&nbsp&nbsp<b></b><i>m11addb13</i>&nbsp&nbsp<b></b><i>madd9</i>&nbsp&nbsp<b></b><i>m6add9</i>&nbsp
+<b></b><i>m7add11</i>&nbsp&nbsp<b></b><i>m7add13</i>&nbsp&nbsp<b></b><i>mmaj7</i>&nbsp&nbsp<b></b><i>mmaj9</i>&nbsp&nbsp<b></b><i>mmaj11</i>&nbsp
+<b></b><i>mmaj13</i>&nbsp&nbsp<b></b><i>mmaj7add11</i>&nbsp&nbsp<b></b><i>mmaj7add13</i>
+<br><strong>suspended :</strong>&nbsp&nbsp<b></b><i>sus</i>&nbsp&nbsp<b></b><i>sus2</i>&nbsp&nbsp<b></b><i>7sus</i>&nbsp&nbsp<b></b><i>7sus2</i>&nbsp
+<b></b><i>9sus</i>&nbsp&nbsp<b></b><i>7sus2b5</i>&nbsp&nbsp<b></b><i>9susb5</i>&nbsp&nbsp<b></b><i>9sus2</i>&nbsp&nbsp<b></b><i>11sus</i>&nbsp&nbsp<b></b><i>11sus2</i>&nbsp&nbsp<b></b><i>11sus#5</i>&nbsp&nbsp<b></b><i>13sus</i>&nbsp
+<b></b><i>13sus2</i>&nbsp&nbsp<b></b><i>13susb5</i>&nbsp&nbsp<b></b><i>13sus2#5</i>&nbsp&nbsp<b></b><i>13sus#5</i>&nbsp&nbsp<b></b><i>6sus</i>&nbsp&nbsp<b></b><i>6susb5</i>&nbsp&nbsp<b></b><i>6sus#5</i></i>&nbsp&nbsp<b></b><i>6sus2</i>&nbsp&nbsp<b></b><i>6sus2b5</i>&nbsp&nbsp<b></b><i>6sus2#5</i>&nbsp&nbsp
+<br><strong>augmented :</strong>&nbsp&nbsp<b></b><i>aug</i>&nbsp&nbsp<b></b><i>aug7</i>&nbsp&nbsp<b></b><i>maj#5</i>&nbsp&nbsp<b></b><i>maj9#5</i>&nbsp&nbsp<b></b><i>maj11#5</i>&nbsp&nbsp<b></b><i>maj13#5</i>&nbsp
+<b></b><i>aug9</i>&nbsp&nbsp<b></b><i>aug7b9</i>&nbsp&nbsp<b></b><i>augb9</i>&nbsp&nbsp<b></b><i>aug7#9</i>&nbsp&nbsp<b></b><i>aug11</i>&nbsp&nbsp<b></b><i>aug11b9</i>&nbsp&nbsp<b></b><i>aug11#9</i>&nbsp&nbsp<b></b><i>aug13</i>&nbsp&nbsp<b></b><i>aug13b9</i>&nbsp&nbsp<b></b><i>aug13#9</i>
+<br><strong>diminished :</strong>&nbsp&nbsp<b></b><i>dim</i>&nbsp&nbsp<b></b><i>dim7</i>&nbsp&nbsp<b></b><i>dim9</i>&nbsp&nbsp<b></b><i>dim11</i>&nbsp&nbsp<b></b><i>dim13</i>&nbsp
+<strong>half - diminished :</strong>&nbsp&nbsp<b></b><i>m7b5</i>&nbsp&nbsp<b></b><i>m9b5</i>&nbsp&nbsp<b></b><i>m11b5</i>&nbsp&nbsp<b></b><i>m13b5</i>   
+<br><br><b></b><i>3</i>&nbsp&nbsp<b></b><i>m3</i>&nbsp&nbsp<b></b><i>1</i>
+
+<script type="text/javascript" src="./js/MusicTheory/waveplot.js"></script>
+<script type="text/javascript">
+
+$( "#Slider" ).slider({
+  min: 0,
+  max: 127,
+  value : 79,
+  change: function( event, ui ) {velocity = ui.value;
+    $( "#vel" ).val(ui.value);
+  }
+}).width(1260);
+
+$( "#vel" ).val($( "#Slider" ).slider(  "value" ));
+$( "#Slider" ).slider({
+  slide: function( event, ui ) {
+	 $( "#vel" ).val(ui.value)
+  }
+});
+
+window.onload = function (){console.log(MIDI);
+  MIDI.loader = new widgets.Loader;
+	MIDI.loadPlugin({
+		soundfontUrl: "./soundfont/",
+		instrument: "acoustic_grand_piano",
+		callback: function(){ 
+		   MIDI.loader.stop();
+			MIDI.programChange(0, 0);
+			velocity = 79;
+		}
+	});
+};
+
+Chord = $("#chordinput");
+
+$("#amount").focus(function (){this.blur();});Chord.focus(function (){this.blur();});
+$("#vel").focus(function (){this.blur();});
+
+$("b").click(function (e){ 
+  var chord = teoria.chord(root.chord($(this).next("i").text()).name);
+  purge(g);
+  Chord.attr("value", chord);Chord.change();
+  purge(panel);
+  plotChord(chord, options);
+});
+
+Chord.change(function (event){
+  Chord.attr("value", this.value);
+  var harmony = teoria.chord(input.getAttribute("value")).notes();
+  console.log( teoria.chord(Chord.attr("value")).intervals + ";" + teoria.chord(Chord.attr("value")).quality());
+  $("*").removeClass("col"); var _chord=[];
+  teoria.chord(Chord.attr("value")).intervals.forEach(function(d, i){
+  	 semiton = d.semitones(); _chord.push(n+semiton);
+    ID1 = (n+semiton) + ''; $('#' + ID1).addClass("col");
+  });
+  MIDI.chordOn(0, _chord, velocity); setTimeout(function(){MIDI.chordOff(0, _chord)}, 2600);	
+});
+      
+$('#piano span').on('mousedown', function(e){$(this).addClass("on"); $("b").css("color", "#9E7929"); 
+  $('#piano span').on('mouseup', function(e){ 
+    $(this).removeClass("on"); $("b").css("color", "#1D688B");
+    MIDI.noteOff(0, n);
+  });   
+  if(e.which == 1){
+    n=parseInt(this.id);
+    if (n) $("#amount").val(n);
+    MIDI.noteOn(0, n, velocity);
+    root = teoria.note.fromMIDI(n);
+    $("b").text(root.name.toUpperCase() + root.accidental.sign); 
+  } 
+});     
+
+</script>
+</body>
+</html>
