@@ -20,7 +20,7 @@
     
 </head>
 <body>
-<div id="container">
+<div id="container" class="center">
 <div id="plotframe">
 <svg width="1250px" height="450px" overflow="hidden" id="plot"></svg>
 </div>
@@ -28,10 +28,10 @@
 <li style="border-left-width: 3px; border-left-style: solid; border-left-color: rgb(255, 0, 0); opacity: 0.3; "></li>
 <li style="border-left-width: 3px; border-left-style: solid; border-left-color: rgb(255, 143, 0); opacity: 0.3; "></li></ul>
 <input id="chordinput" type="text">
-<p id="description"><i>Press the key on a virtual piano and click the highlighted root.name of the chord. You can click and drag
-your way around the wave function.</i></p>      
+<p id="description"><big>Press the key on a virtual piano and click the <b>highlighted</b> name of the chord. You can click and drag
+your way around the wave function.</big></p>      
 </div>
-<div id=piano>
+<div id=piano class="center">
 <div class=ebony>
 <span id=18></span><span id=20></span><span id=22></span><span class=break></span><span id=25></span><span id=27></span><span class=break></span><span id=30></span><span id=32></span><span id=34></span><span class=break></span><span id=37></span><span id=39></span><span class=break></span><span id=42></span><span id=44></span><span id=46></span><span class=break></span><span id=49></span><span id=51></span><span class=break></span><span id=54></span><span id=56></span><span id=58></span><span class=break></span><span id=61></span><span id=63></span><span class=break></span><span id=66></span><span id=68></span><span id=70></span><span class=break></span><span id=73></span><span id=75></span><span class=break></span><span id=78></span><span id=80></span><span id=82></span><span class=break></span><span
 id=85></span><span id=87></span><span class=break></span><span id=90></span><span id=92></span><span id=94></span><span class=break></span><span id=97></span>
@@ -41,6 +41,7 @@ id=85></span><span id=87></span><span class=break></span><span id=90></span><spa
 id=89></span><span id=91></span><span id=93></span><span id=95></span><span id=96></span><span id=98></span>
 </div>
 </div>
+<center>
 <label for="amount"> MIDI key number :</label><input type="text" id="amount" size="5px" class="range">
 <label for="vel" style="padding-left: 1px;"> Velocity:</label>
 <input type="text" id="vel" class="range"/>
@@ -66,7 +67,7 @@ id=89></span><span id=91></span><span id=93></span><span id=95></span><span id=9
 <br><strong>diminished :</strong>&nbsp&nbsp<b></b><i>dim</i>&nbsp&nbsp<b></b><i>dim7</i>&nbsp&nbsp<b></b><i>dim9</i>&nbsp&nbsp<b></b><i>dim11</i>&nbsp&nbsp<b></b><i>dim13</i>&nbsp
 <strong>half - diminished :</strong>&nbsp&nbsp<b></b><i>m7b5</i>&nbsp&nbsp<b></b><i>m9b5</i>&nbsp&nbsp<b></b><i>m11b5</i>&nbsp&nbsp<b></b><i>m13b5</i>   
 <br><br><b></b><i>3</i>&nbsp&nbsp<b></b><i>m3</i>&nbsp&nbsp<b></b><i>1</i>
-
+</center>
 <script type="text/javascript" src="./js/MusicTheory/waveplot.js"></script>
 <script type="text/javascript">
 
@@ -77,7 +78,7 @@ $( "#Slider" ).slider({
   change: function( event, ui ) {velocity = ui.value;
     $( "#vel" ).val(ui.value);
   }
-}).width(1260);
+}).width(1290);
 
 $( "#vel" ).val($( "#Slider" ).slider(  "value" ));
 $( "#Slider" ).slider({
@@ -104,9 +105,9 @@ var timer, Chord = $("#chordinput");
 $("#amount").focus(function (){this.blur();});Chord.focus(function (){this.blur();});
 $("#vel").focus(function (){this.blur();});
 
-$("b").click(function (e){ MIDI.chordOff(0, vals); clearTimeout(timer);
+$("b").not($( "b:contains('highlighted')" )).click(function (e){ MIDI.chordOff(0, vals); clearTimeout(timer);
   var chord = teoria.chord(root.chord($(this).next("i").text()).name); console.log(chord);
-  purge(g);
+  purge(g);console.log(Chord);
   Chord.attr("value", chord);Chord.change();
   purge(panel);
   plotChord(chord, options);

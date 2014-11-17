@@ -3,7 +3,7 @@
   padding: 0px;
 }
 
-body {background-color: #FFFCEA;
+body {background-color: #EAFFFA;
   font-size: 10pt;
   color: #45346F;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif
@@ -21,7 +21,8 @@ h1 {
 
 #container {
   width: 1250px;
-  padding-left: 7px;
+  position: relative;
+  top: 0; left: 0; bottom: 0; right: 0;
   text-align: center;
 }
 
@@ -56,7 +57,9 @@ h1 {
 } 
 .highlight {color: orange;}
 .range {border:0; border-radius: 18px; background-color:#FFFCEA; color: #2C0C0D; font-weight:bold; text-align: center}
-label {font: 0.9em "Lucida Grande", "Lucida Sans Unicode", sans-serif;color :#381f00;padding-left: 450px;}
+label {font: 0.9em "Lucida Grande", "Lucida Sans Unicode", sans-serif;color :#381f00;}
+big {font: 1.8em "Lucida Grande", "Lucida Sans Unicode", sans-serif;color :#381f00;}
+strong, i, b{font: 1.3em; font-family: 'Courier New', Courier, monospace;line-height: 1.7;}
 div#piano {
   position: relative;
   color: #808080;
@@ -126,4 +129,10 @@ div.ebony {
   border-width: 0px;
   max-width: 0px;
   max-height: 0px;
+}
+.center {
+  width: 66%;
+  margin: auto;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
 }

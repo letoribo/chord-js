@@ -55,13 +55,13 @@ function plotChord(chord, options) {
   var plot = options.plot;
   var panel = options.panel;
   
-    // plot the notes
+  // plot the notes
 teoria.chord($( "#chordinput" ).attr("value")).intervals.forEach(function(d, i) {
   semiton = d.semitones(); 
   var Note = teoria.note.fromMIDI(n+semiton); 
   var scientific = Note.scientific();var helmholtz = Note.helmholtz();
   // Push the wave lambda to the sum stack
-  fqs.push(waveLambda(Note.fq()));console.log(i + "; " + n + "; " + Note.fq() + ";");
+  fqs.push(waveLambda(Note.fq()));
 
   // Plot the function
   var path = plotFunction(fqs[fqs.length - 1], merge(options, {
@@ -103,20 +103,6 @@ var chord = plotFunction(function(x){
 function purge(el){
   while (el.firstChild){
     el.removeChild(el.firstChild);
-  }
-}
-
-function inputChanged() {
-  if (!this.value) {
-    return;
-  }
-  try {
-    var chord = teoria.chord(this.value);console.log(chord);
-    purge(g);
-    purge(panel);
-    plotChord(chord, options);
-  } catch (e) {
-    console.warn(e.toString());
   }
 }
 
@@ -164,8 +150,3 @@ plot.addEventListener('mousemove', function(e) {
   var y = origo.y + e.pageY - mouseDown.y;
   g.setAttribute('transform', 'translate(' + x + ',' + y + ')');
 }, false);
-
-// Draw chord, when ready
-input = document.getElementById('chordinput');
-input.addEventListener('input', inputChanged, false);
-inputChanged.call(input);
