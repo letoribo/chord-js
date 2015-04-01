@@ -1,2 +1,2 @@
       
-**Demo:** http://chord-js.herokuapp.com/
+**Demo:** https://chord-js.firebaseapp.com/

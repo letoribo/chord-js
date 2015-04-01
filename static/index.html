@@ -13,10 +13,10 @@
 <!-- extras -->
 <script src="./inc/Base64.js" type="text/javascript"></script>
 <script src="./inc/base64binary.js" type="text/javascript"></script>
-<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<script src="js/jquery-1.9.1.js"></script>
+<script src="js/jquery-ui.js"></script>
 <link href="style.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css" />
+<link rel="stylesheet" href="js/jquery-ui.css" />
     
 </head>
 <body>
@@ -107,7 +107,8 @@ $("#vel").focus(function (){this.blur();});
 
 $("b").not($( "b:contains('highlighted')" )).click(function (e){ MIDI.chordOff(0, vals); clearTimeout(timer);
   var chord = teoria.chord(root.chord($(this).next("i").text()).name); console.log(chord);
-  purge(g);console.log(Chord);
+  purge(g); //
+  console.log(Chord);
   Chord.attr("value", chord);Chord.change();
   purge(panel);
   plotChord(chord, options);

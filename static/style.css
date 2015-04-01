@@ -31,6 +31,7 @@ h1 {
   border-left: 5px solid #1693a5;
   padding: 10px;
   margin-bottom: 10px;
+  text-align: center;
 }
 
 #description {
@@ -119,17 +120,6 @@ div.ebony {
 }
 .ivory span.col { background-color: #5DA5AF;}
 .ebony span.col { background-color: #5DA5AF;}
-.hidden {
-  visibility: hidden;
-  width: 0px;
-  height: 0px;
-  margin: 0px;
-  padding: 0px;
-  border-style: none;
-  border-width: 0px;
-  max-width: 0px;
-  max-height: 0px;
-}
 .center {
   width: 66%;
   margin: auto;
