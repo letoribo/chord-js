@@ -54,39 +54,42 @@ function plotChord(chord, options) {
   var chordColor = options.chordColor || colors[colors.length - 1];
   var plot = options.plot;
   var panel = options.panel;
-  
+
   // plot the notes
-teoria.chord($( "#chordinput" ).attr("value")).intervals.forEach(function(d, i) {
-  semiton = d.semitones(); 
-  var Note = teoria.note.fromMIDI(n+semiton); 
-  var scientific = Note.scientific();var helmholtz = Note.helmholtz();
+chordName = teoria.chord($( "#chordinput" ).attr("value")); 
+var chord_root = chordName.root.toString(); 
+ 
+chordName.notes().forEach(function(Note, i){
+  var no = Note.name + Note.accidental.sign + Note.octave;
+  inter = teoria.interval(teoria.note(chord_root), teoria.note(no));
+  var scientific = Note.scientific();
+  var helmholtz = Note.helmholtz();
   // Push the wave lambda to the sum stack
   fqs.push(waveLambda(Note.fq()));
-
   // Plot the function
   var path = plotFunction(fqs[fqs.length - 1], merge(options, {
     color: colors[i % colors.length]
   }));
-    
+  
   // Add the note to the panel
   var li = document.createElement('li');
   li.style.borderLeft = '3px solid ' + colors[i % colors.length];
-  li.style.opacity = options.opacity || 1;
-  li.textContent = d + ' / ' + scientific + ' / ' + helmholtz + ' ~ ' + Math.round(Note.fq() * 100) / 100 + 'hz';
+  li_text = inter + ' / ' + scientific + ' / ' + helmholtz + ' ~ ' + Math.round(Note.fq() * 100) / 100 + 'hz';
+  li.textContent = li_text;
   panel.appendChild(li);
-
+    
   (function(path, item) {
     function over() {
       path.style.opacity = item.style.opacity = 1;
     }
 
-  function out(){
-    path.style.opacity = item.style.opacity = options.opacity;
-  }
-  path.addEventListener('mouseover', over, false);
-  item.addEventListener('mouseover', over, false);
-  path.addEventListener('mouseout', out, false);
-  item.addEventListener('mouseout', out, false);
+    function out(){
+      path.style.opacity = item.style.opacity = options.opacity;
+    }
+    path.addEventListener('mouseover', over, false);
+    item.addEventListener('mouseover', over, false);
+    path.addEventListener('mouseout', out, false);
+    item.addEventListener('mouseout', out, false);
   })(path, li);
 
   // Append the path

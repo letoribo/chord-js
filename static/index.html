@@ -107,9 +107,9 @@ $("#vel").focus(function (){this.blur();});
 
 $("b").not($( "b:contains('highlighted')" )).click(function (e){ MIDI.chordOff(0, vals); clearTimeout(timer);
   var chord = teoria.chord(root.chord($(this).next("i").text()).name); console.log(chord);
-  purge(g); //
   console.log(Chord);
-  Chord.attr("value", chord);Chord.change();
+  Chord.attr("value", chord);
+  Chord.change();
   purge(panel);
   plotChord(chord, options);
 });
