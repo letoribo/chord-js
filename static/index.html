@@ -55,7 +55,7 @@ id=89></span><span id=91></span><span id=93></span><span id=95></span><span id=9
 <b></b><i>13#9</i>&nbsp&nbsp<b></b><i>13b9</i>&nbsp&nbsp<b></b><i>13b9b5</i>&nbsp&nbsp<b></b><i>11add#13</i>&nbsp&nbsp<b></b><i>13#11</i>&nbsp&nbsp<b></b><i>13b9#11</i>&nbsp
 <b></b><i>11addb13</i>&nbsp&nbsp<b></b><i>7b13#9</i>&nbsp&nbsp<b></b><i>7b13#9#11</i>
 <br><strong>minor :</strong>&nbsp&nbsp<b></b><i>m</i>&nbsp&nbsp<b></b><i>m6</i>&nbsp&nbsp<b></b><i>m7</i>&nbsp&nbsp<b></b><i>m#5</i>&nbsp
-<b></b><i>m7#5</i>&nbsp&nbsp<b></b><i>m9</i>&nbsp&nbsp<b></b><i>m9#5</i>&nbsp&nbsp<b></b><i>m11</i>&nbsp&nbsp<b></b><i>m11#5</i>&nbsp&nbsp<b></b><i>7b13#9</i>&nbsp&nbsp<b></b><i>m13</i>
+<b></b><i>m7#5</i>&nbsp&nbsp<b></b><i>m9</i>&nbsp&nbsp<b></b><i>m9#5</i>&nbsp&nbsp<b></b><i>m11</i>&nbsp&nbsp<b></b><i>m11#5</i>&nbsp&nbsp<b></b><i>m13</i>
 &nbsp<b></b><i>m13#5</i>&nbsp&nbsp<b></b><i>m11addb13</i>&nbsp&nbsp<b></b><i>madd9</i>&nbsp&nbsp<b></b><i>m6add9</i>&nbsp
 <b></b><i>m7add11</i>&nbsp&nbsp<b></b><i>m7add13</i>&nbsp&nbsp<b></b><i>mmaj7</i>&nbsp&nbsp<b></b><i>mmaj9</i>&nbsp&nbsp<b></b><i>mmaj11</i>&nbsp
 <b></b><i>mmaj13</i>&nbsp&nbsp<b></b><i>mmaj7add11</i>&nbsp&nbsp<b></b><i>mmaj7add13</i>
@@ -89,25 +89,26 @@ $( "#Slider" ).slider({
 
 window.onload = function (){console.log(MIDI);
   MIDI.loader = new widgets.Loader;
-	MIDI.loadPlugin({
-		soundfontUrl: "./soundfont/",
-		instrument: "acoustic_grand_piano",
-		callback: function(){ 
-		   MIDI.loader.stop();
-			MIDI.programChange(0, 0);
-			velocity = 79;
-		}
-	});
+  MIDI.loadPlugin({
+	 soundfontUrl: "./soundfont/",
+	 instrument: "acoustic_grand_piano",
+	 callback: function(){ 
+		MIDI.loader.stop();
+		MIDI.programChange(0, 0);
+		velocity = 79;
+	 }
+  });
 };
 
 var timer, Chord = $("#chordinput");
 
-$("#amount").focus(function (){this.blur();});Chord.focus(function (){this.blur();});
+$("#amount").focus(function (){this.blur();});
+Chord.focus(function (){this.blur();});
 $("#vel").focus(function (){this.blur();});
 
-$("b").not($( "b:contains('highlighted')" )).click(function (e){ MIDI.chordOff(0, vals); clearTimeout(timer);
+$("b").not($( "b:contains('highlighted')" )).click(function (e){ 
+  MIDI.chordOff(0, vals); clearTimeout(timer);
   var chord = teoria.chord(root.chord($(this).next("i").text()).name); console.log(chord);
-  console.log(Chord);
   Chord.attr("value", chord);
   Chord.change();
   purge(panel);
@@ -120,7 +121,7 @@ for (i = 0; i <= 127; i++){vals.push(i)};
 Chord.change(function (event){
   Chord.attr("value", this.value);
   var chord = teoria.chord(this.value);
-  console.log(chord.intervals + ";" + chord.quality());
+  console.log(chord.intervals + "; " + chord.quality());
   $("*").removeClass("col");
   var _chord=[];
   chord.intervals.forEach(function(d, i){
